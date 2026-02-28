@@ -9,13 +9,11 @@
     :root {
       --primary: #0A2540;
       --accent: #00D4FF;
-      --accent-secondary: #FF6B6B;
       --text-dark: #1A1A2E;
       --text-light: #6B7280;
       --bg-light: #F8FAFC;
       --white: #FFFFFF;
       --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
       --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
     }
 
@@ -501,21 +499,26 @@
 
     .services-carousel {
       display: flex;
-      gap: 1.5rem;
+      gap: 24px;
       transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
       padding: 1rem 0;
+      align-items: flex-start;
     }
 
     .service-card {
-      background: var(--bg-light);
-      border-radius: 20px;
-      padding: 2rem;
-      transition: all 0.4s ease;
-      border: 1px solid rgba(0, 0, 0, 0.05);
+      background: var(--white);
+      border-radius: 24px;
+      padding: 2.5rem 2rem;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid rgba(0, 0, 0, 0.08);
       position: relative;
       overflow: hidden;
-      min-width: calc(33.333% - 1rem);
+      min-width: calc(50% - 12px);
       flex-shrink: 0;
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
     }
 
     .service-card::before {
@@ -524,63 +527,69 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 5px;
-      background: var(--gradient-3);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.4s ease;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: 0;
     }
 
     .service-card:hover::before {
-      transform: scaleX(1);
+      opacity: 1;
     }
 
     .service-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
-      background: var(--white);
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px -10px rgba(0, 212, 255, 0.15);
+      border-color: rgba(0, 212, 255, 0.3);
     }
 
     .service-icon {
-      width: 60px;
-      height: 60px;
-      border-radius: 15px;
-      background: var(--gradient-3);
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--bg-light);
       display: flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 1.5rem;
-      font-size: 1.8rem;
+      font-size: 1.5rem;
+      transition: all 0.4s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .service-card:hover .service-icon {
+      background: var(--accent);
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .service-icon svg {
+      stroke: var(--primary);
+      transition: all 0.4s ease;
+    }
+
+    .service-card:hover .service-icon svg {
+      stroke: var(--white);
     }
 
     .service-card h3 {
       font-family: 'Syne', sans-serif;
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       font-weight: 700;
       margin-bottom: 0.8rem;
       color: var(--text-dark);
+      position: relative;
+      z-index: 1;
     }
 
     .service-card p {
       color: var(--text-light);
       line-height: 1.6;
-      margin-bottom: 1.2rem;
-      font-size: 0.95rem;
-    }
-
-    .service-link {
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: gap 0.3s ease;
-      font-size: 0.9rem;
-    }
-
-    .service-link:hover {
-      gap: 1rem;
+      margin-bottom: 0;
+      font-size: 1rem;
+      position: relative;
+      z-index: 1;
     }
 
     /* Carousel Navigation Buttons */
@@ -1017,10 +1026,53 @@
       }
     }
 
+    /* Floating Apply Button */
+    .floating-apply-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      padding: 12px 24px;
+      background: var(--accent);
+      color: var(--white);
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-weight: 700;
+      box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
+      z-index: 2000;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      animation: pulse 2s infinite;
+    }
+
+    .floating-apply-btn:hover {
+      transform: translateY(-5px) scale(1.1);
+      box-shadow: 0 6px 20px rgba(0, 212, 255, 0.6);
+    }
+
+    .floating-apply-btn svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(0, 212, 255, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(0, 212, 255, 0);
+      }
+    }
+
     /* Responsive Carousel */
     @media (max-width: 1024px) {
       .service-card {
-        min-width: calc(50% - 0.75rem);
+        min-width: calc(50% - 12px);
       }
 
       .carousel-btn-prev {
@@ -1048,8 +1100,47 @@
     }
 
     @media (max-width: 768px) {
+      .services-carousel-container {
+        padding: 0 1rem;
+      }
+
+      .services-carousel {
+        gap: 1rem;
+        align-items: flex-start;
+      }
+
       .service-card {
-        min-width: 100%;
+        min-width: calc(50% - 0.5rem);
+        padding: 1.5rem 1rem;
+        border-radius: 15px;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .service-card p {
+        font-size: 0.9rem;
+      }
+
+      .service-card h3 {
+        font-size: 1.1rem;
+      }
+
+      .service-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+      }
+
+      .floating-apply-btn {
+        bottom: 20px;
+        right: 20px;
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+      
+      .floating-apply-btn svg {
+        width: 24px;
+        height: 24px;
       }
 
       .carousel-btn {
@@ -1322,9 +1413,9 @@
           </div>
           <h3>Permanent Staffing</h3>
           <p>
-            Seamless permanent staffing solutions for businesses of all sizes, from SMEs to MNCs. We specialize in finding the right talent for long-term organizational success.
+            Seamless permanent staffing solutions for businesses of all sizes, from SMEs to MNCs. 
+             We specialize in finding the right talent for long-term organizational success.
           </p>
-          <a href="#" class="service-link">Learn more →</a>
         </div>
 
         <!-- Service Slide 2 -->
@@ -1336,7 +1427,6 @@
           <p>
             Flexible temporary staffing solutions that provide adaptability and meet your short-term business requirements without permanent commitments.
           </p>
-          <a href="#" class="service-link">Learn more →</a>
         </div>
 
         <!-- Service Slide 3 -->
@@ -1348,7 +1438,6 @@
           <p>
             Comprehensive campus recruitment and bulk hiring services connecting fresh talent with exciting career opportunities at leading organizations.
           </p>
-          <a href="#" class="service-link">Learn more →</a>
         </div>
 
         <!-- Service Slide 4 -->
@@ -1360,7 +1449,6 @@
           <p>
             Expert manpower planning and consultancy services ensuring you have the right workforce strength to achieve your business objectives.
           </p>
-          <a href="#" class="service-link">Learn more →</a>
         </div>
 
         <!-- Service Slide 5 -->
@@ -1372,7 +1460,6 @@
           <p>
             100% accurate payroll outsourcing services. We manage your internal payroll operations collaboratively, ensuring compliance and timely processing.
           </p>
-          <a href="#" class="service-link">Learn more →</a>
         </div>
 
         <!-- Service Slide 6 -->
@@ -1384,7 +1471,6 @@
           <p>
             Expert statutory management and compliance services handling diverse requirements across India, ensuring complete legal adherence.
           </p>
-          <a href="#" class="service-link">Learn more →</a>
         </div>
 
         <!-- Service Slide 7 -->
@@ -1396,7 +1482,6 @@
           <p>
             Temporary personnel engagement providing flexibility and adaptability across IT, BPO, Healthcare, Retail, Logistics and various industries.
           </p>
-          <a href="#" class="service-link">Learn more →</a>
         </div>
 
         <!-- Service Slide 8 -->
@@ -1408,7 +1493,6 @@
           <p>
             Recruitment Process Outsourcing - transfer all or part of your recruitment activities to us for streamlined, efficient talent acquisition.
           </p>
-          <a href="#" class="service-link">Learn more →</a>
         </div>
 
         <!-- Service Slide 9 -->
@@ -1420,7 +1504,6 @@
           <p>
             Strategic talent acquisition services leveraging advanced sourcing techniques to identify and attract top-tier candidates for your organization.
           </p>
-          <a href="#" class="service-link">Learn more →</a>
         </div>
       </div>
 
@@ -1616,6 +1699,15 @@
     </div>
   </footer>
 
+  <!-- Floating Apply Button -->
+  <a href="https://forms.gle/KYfxfhUKtdTDadYt5" target="_blank" class="floating-apply-btn" aria-label="Apply Now">
+    <span>Apply Here</span>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+    </svg>
+  </a>
+
   <script>
     // Navbar scroll effect
     window.addEventListener('scroll', function() {
@@ -1651,19 +1743,16 @@
       }
     });
 
-    // Close menu when a link is clicked
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', () => {
-        if (navLinks.classList.contains('active')) {
-          toggleMenu();
-        }
-      });
-    });
-
     // Smooth scroll for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
+
+        // Close mobile menu if it's open and the link is a nav link
+        if (navLinks.classList.contains('active') && this.closest('.nav-links')) {
+          toggleMenu();
+        }
+
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
           target.scrollIntoView({
@@ -1737,21 +1826,14 @@
     const cards = document.querySelectorAll('.service-card');
     
     let currentIndex = 0;
-    let cardsPerView = 3;
+    let currentPage = 0;
+    const cardsPerView = 2;
     let autoPlayInterval;
     let isDragging = false;
     let startPos = 0;
 
     // Calculate cards per view based on screen size
-    function updateCardsPerView() {
-      if (window.innerWidth <= 768) {
-        cardsPerView = 1;
-      } else if (window.innerWidth <= 1024) {
-        cardsPerView = 2;
-      } else {
-        cardsPerView = 3;
-      }
-      currentIndex = Math.min(currentIndex, cards.length - cardsPerView);
+    function updateLayout() {
       createDots();
       updateCarousel();
     }
@@ -1759,57 +1841,58 @@
     // Create dot indicators
     function createDots() {
       dotsContainer.innerHTML = '';
-      const totalSlides = cards.length - cardsPerView + 1;
+      const totalPages = Math.ceil(cards.length / cardsPerView);
       
-      for (let i = 0; i < totalSlides; i++) {
+      for (let i = 0; i < totalPages; i++) {
         const dot = document.createElement('button');
         dot.classList.add('carousel-dot');
-        dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
-        if (i === 0) dot.classList.add('active');
-        dot.addEventListener('click', () => goToSlide(i));
+        dot.setAttribute('aria-label', `Go to page ${i + 1}`);
+        if (i === currentPage) dot.classList.add('active');
+        dot.addEventListener('click', () => goToPage(i));
         dotsContainer.appendChild(dot);
       }
     }
 
     // Update carousel position
     function updateCarousel() {
-      const cardWidth = cards[0].offsetWidth;
-      const gap = 24;
-      const offset = -(currentIndex * (cardWidth + gap));
+      const cardWidth = cards[0].getBoundingClientRect().width;
+      const style = window.getComputedStyle(carousel);
+      const gap = parseFloat(style.gap) || 0;
+      const offset = -(currentPage * cardsPerView * (cardWidth + gap));
       carousel.style.transform = `translateX(${offset}px)`;
       
       const dots = dotsContainer.querySelectorAll('.carousel-dot');
       dots.forEach((dot, index) => {
-        dot.classList.toggle('active', index === currentIndex);
+        dot.classList.toggle('active', index === currentPage);
       });
 
-      const maxIndex = cards.length - cardsPerView;
-      prevBtn.disabled = currentIndex === 0;
-      nextBtn.disabled = currentIndex >= maxIndex;
+      const totalPages = Math.ceil(cards.length / cardsPerView);
+      prevBtn.disabled = currentPage === 0;
+      nextBtn.disabled = currentPage >= totalPages - 1;
     }
 
     // Go to specific slide
-    function goToSlide(index) {
-      const maxIndex = cards.length - cardsPerView;
-      currentIndex = Math.max(0, Math.min(index, maxIndex));
+    function goToPage(page) {
+      const totalPages = Math.ceil(cards.length / cardsPerView);
+      currentPage = Math.max(0, Math.min(page, totalPages - 1));
       updateCarousel();
       resetAutoPlay();
     }
 
     // Next slide
-    function nextSlide() {
-      const maxIndex = cards.length - cardsPerView;
-      if (currentIndex < maxIndex) {
-        currentIndex++;
+    function nextPage() {
+      const totalPages = Math.ceil(cards.length / cardsPerView);
+      if (currentPage < totalPages - 1) {
+        currentPage++;
         updateCarousel();
         resetAutoPlay();
       }
     }
 
     // Previous slide
-    function prevSlide() {
-      if (currentIndex > 0) {
-        currentIndex--;
+    function prevPage() {
+      if (currentPage > 0) {
+        currentPage--;
         updateCarousel();
         resetAutoPlay();
       }
@@ -1819,11 +1902,11 @@
     function startAutoPlay() {
       clearInterval(autoPlayInterval);
       autoPlayInterval = setInterval(() => {
-        const maxIndex = cards.length - cardsPerView;
-        if (currentIndex < maxIndex) {
-          nextSlide();
+        const totalPages = Math.ceil(cards.length / cardsPerView);
+        if (currentPage < totalPages - 1) {
+          nextPage();
         } else {
-          goToSlide(0);
+          goToPage(0);
         }
       }, 5000);
     }
@@ -1848,10 +1931,10 @@
       const diff = currentPosition - startPos;
       
       if (Math.abs(diff) > 50) {
-        if (diff > 0 && currentIndex > 0) {
-          prevSlide();
-        } else if (diff < 0 && currentIndex < cards.length - cardsPerView) {
-          nextSlide();
+        if (diff > 0) {
+          prevPage();
+        } else {
+          nextPage();
         }
         isDragging = false;
       }
@@ -1864,8 +1947,8 @@
     }
 
     // Event listeners
-    prevBtn.addEventListener('click', prevSlide);
-    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevPage);
+    nextBtn.addEventListener('click', nextPage);
     
     carousel.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
     
@@ -1880,13 +1963,13 @@
 
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') prevSlide();
-      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') prevPage();
+      if (e.key === 'ArrowRight') nextPage();
     });
 
     // Initialize
-    window.addEventListener('resize', updateCardsPerView);
-    updateCardsPerView();
+    window.addEventListener('resize', updateLayout);
+    updateLayout();
     startAutoPlay();
 
     // Pause autoplay when carousel is not in view
